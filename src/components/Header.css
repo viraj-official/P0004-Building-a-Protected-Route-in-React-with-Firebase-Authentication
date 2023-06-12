@@ -1,0 +1,41 @@
+.navbar {
+  height: 8vh;
+  background-color: #000000;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.header_logo {
+  width: 100px;
+  object-fit: contain;
+  margin: 0 3vh;
+  margin-top: 8px;
+}
+
+.nav-elements {
+  padding: 0 5vh 0 5vh;
+  height: 100%;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-element {
+  font-size: 2vh;
+  color: #ffffff;
+  text-decoration: none;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 1vh;
+}
+
+.signin_but {
+  padding: 0.6vh 1.2vh;
+  border-radius: 5px;
+  border: 0.3vh solid rgb(255, 255, 255);
+}
