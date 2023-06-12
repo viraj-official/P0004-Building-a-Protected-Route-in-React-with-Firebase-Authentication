@@ -15,7 +15,7 @@ import { useStateValue } from "./StateProvider";
 import { auth } from "./config/Firebase";
 
 function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(null);
   const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -44,70 +44,74 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <div>
-                <Header />
-                <Home />
-              </div>
-            }
-          />
-          <Route
-            exact
-            path="/dashboard"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <div>
-                  <Header />
-                  <Dashboard />
-                </div>
-              </Protected>
-            }
-          />
-          <Route
-            exact
-            path="/projects"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <div>
-                  <Header />
-                  <Project />
-                </div>
-              </Protected>
-            }
-          />
-          <Route
-            exact
-            path="/about"
-            element={
-              <div>
-                <Header />
-                <About />
-              </div>
-            }
-          />
-          <Route
-            exact
-            path="/profile"
-            element={
-              <Protected isSignedIn={isSignedIn}>
-                <div>
-                  <Header />
-                  <Profile />
-                </div>
-              </Protected>
-            }
-          />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-        </Routes>
-      </div>
-    </Router>
+    <div>
+      {isSignedIn !== null && (
+        <Router>
+          <div className="app">
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <div>
+                    <Header />
+                    <Home />
+                  </div>
+                }
+              />
+              <Route
+                exact
+                path="/dashboard"
+                element={
+                  <Protected isSignedIn={isSignedIn}>
+                    <div>
+                      <Header />
+                      <Dashboard />
+                    </div>
+                  </Protected>
+                }
+              />
+              <Route
+                exact
+                path="/projects"
+                element={
+                  <Protected isSignedIn={isSignedIn}>
+                    <div>
+                      <Header />
+                      <Project />
+                    </div>
+                  </Protected>
+                }
+              />
+              <Route
+                exact
+                path="/about"
+                element={
+                  <div>
+                    <Header />
+                    <About />
+                  </div>
+                }
+              />
+              <Route
+                exact
+                path="/profile"
+                element={
+                  <Protected isSignedIn={isSignedIn}>
+                    <div>
+                      <Header />
+                      <Profile />
+                    </div>
+                  </Protected>
+                }
+              />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/register" element={<Register />} />
+            </Routes>
+          </div>
+        </Router>
+      )}
+    </div>
   );
 }
 
