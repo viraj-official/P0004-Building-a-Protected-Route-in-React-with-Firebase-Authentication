@@ -1,20 +1,28 @@
+import { useRef } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import "./Header.css";
-import { Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import { auth } from "../config/Firebase";
+import { Link } from "react-router-dom";
 
-export default function Header() {
+function Header() {
+  const navRef = useRef();
   const [{ basket, user }, dispatch] = useStateValue();
+
+  const showNavbar = () => {
+    navRef.current.classList.toggle("responsive_nav");
+  };
 
   const handleAuthenticaton = () => {
     if (user) {
       auth.signOut();
     }
+    showNavbar();
   };
 
   return (
     <div className="navbar">
-      <div className="container">
+      <header>
         <Link to="/">
           <img
             className="header_logo"
@@ -22,25 +30,26 @@ export default function Header() {
             alt="header_logo"
           />
         </Link>
-        <div className={"nav-elements"}>
-          <Link to="/" className="nav-element">
+
+        <nav ref={navRef}>
+          <Link t onClick={showNavbar} o="/" className="nav-element">
             <p>Home</p>
           </Link>
           {user ? (
-            <Link to="/dashboard" className="nav-element">
+            <Link onClick={showNavbar} to="/dashboard" className="nav-element">
               <p>Dashboard</p>
             </Link>
           ) : null}
           {user ? (
-            <Link to="/projects" className="nav-element">
+            <Link onClick={showNavbar} to="/projects" className="nav-element">
               <p>Projects</p>
             </Link>
           ) : null}
-          <Link to="/about" className="nav-element">
+          <Link onClick={showNavbar} to="/about" className="nav-element">
             <p>About</p>
           </Link>
           {user ? (
-            <Link to="/profile" className="nav-element">
+            <Link onClick={showNavbar} to="/profile" className="nav-element">
               <p>Profile</p>
             </Link>
           ) : null}
@@ -49,9 +58,17 @@ export default function Header() {
               <p>{user ? "Sign Out" : "Sign In"}</p>
             </div>
           </Link>
-          <div className="nav-element"></div>
-        </div>
-      </div>
+
+          <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+            <FaTimes />
+          </button>
+        </nav>
+        <button className="nav-btn" onClick={showNavbar}>
+          <FaBars />
+        </button>
+      </header>
     </div>
   );
 }
+
+export default Header;
